@@ -41,9 +41,9 @@ header{
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 440px;
-    padding: 1px;
-
+    min-height: 70vh;
+    margin: 10 auto;
+    padding: 4px;
     align-items: center;
     justify-content: center;
  }
@@ -191,8 +191,16 @@ header{
 
   }
 
+#input-oculto {
+  width: 100%;
+  height: 5px;
+  opacity: 0;
+  visibility: hidden;
+}
+
   .game-buttons{
    text-align: center;
+   background-color: transparent;
   }
 
   .btn-reiniciar{
@@ -220,6 +228,7 @@ header{
 
  footer{
     text-align: center;
+    color:#0A3871;
     font-weight: bold;
     margin-top: 0;
  }
@@ -228,11 +237,17 @@ header{
  
  @media screen and (max-width: 600px) {
 
+  body{
+    min-height: 100vh;
+    max-height: 100vh;
+  }
+
   header{
     display: block;
     text-align: center;
     justify-content: center;
     align-items: center;
+    padding: 5px;
     gap: 2px;
   }
 
@@ -247,8 +262,8 @@ header{
   }
 
    .container{
+      min-height: 40vh;
       margin: 0 auto;
-      max-width: 100vw;
    }
    #botones{
       flex-direction: column;
@@ -266,7 +281,6 @@ header{
 
    #canvas{
       margin: 0 auto;
-      padding: 10px;
       max-width: 100vw;
     }
 
@@ -285,8 +299,10 @@ header{
 
    footer{
     background-color: transparent;
-    padding: 12px;
-    margin-top: 0;
+    margin-top: 35px;
+    padding: 4px;
+    min-width: 100%;
+    
    }
 
  }
