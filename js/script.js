@@ -1,0 +1,206 @@
+const CONTENEDOR = document.querySelector(".container");
+const BOTONES = document.querySelector(".game-buttons")
+BOTONES.style.display = "none";
+const POP_UP = document.querySelector("#pop-up");
+const INPUT = document.querySelector("#new-word");
+const GANASTE = document.querySelector("#ganaste");
+const PERDISTE = document.querySelector("#perdiste");
+let tablero = document.querySelector("#ahorcado");
+let pincel = tablero.getContext("2d");
+tablero.style.display = "none";
+
+let palabras = ["AMOR", "FAMILIA", "MASCOTA", "ABRAZO", "SALUD", "AMISTAD"];
+let palabraSecreta = "";
+let cantErrores = 0;
+let contador = 0;
+
+function sortearPalabra() {
+    let palabra = palabras[Math.floor(Math.random() * palabras.length)];
+    palabraSecreta = palabra;
+    console.log(palabraSecreta);
+}
+
+function dibujarCanvas() {
+    pincel.lineWidth = 6;
+    pincel.lineCap = "round";
+    pincel.lineJoin = "round";
+    pincel.fillStyle = "transparent";
+    pincel.strokeStyle = "#0A3871";
+    pincel.fillRect(0, 0, 700, 400);
+    pincel.beginPath();
+    pincel.moveTo(10, 250);
+    pincel.lineTo(100, 250);
+    pincel.moveTo(55, 250);
+    pincel.lineTo(55, 10);
+    pincel.lineTo(140, 10);
+    pincel.lineTo(140, 50);
+    pincel.stroke();
+    pincel.closePath();
+}
+
+
+function dibujarGuiones() {
+
+    pincel.lineWidth = 4;
+    pincel.lineCap = "round";
+    pincel.lineJoin = "round";
+    pincel.fillStyle = "transparent";
+    pincel.strokeStyle = "#0A3871";
+    pincel.beginPath();
+
+    let ancho = 450 / palabraSecreta.length;
+
+    for (let i = 0; i < palabraSecreta.length; i++) {
+        pincel.moveTo(250 + (ancho * i), 200);
+        pincel.lineTo(300 + (ancho * i), 200);
+    }
+
+    pincel.stroke();
+    pincel.closePath();
+}
+
+//Inicia el juego sorteando una palabra del array
+
+function iniciarJuego() {
+    CONTENEDOR.style.display = "none";
+    BOTONES.style.display = "block";
+    tablero.style.display = "block";
+    sortearPalabra();
+    dibujarCanvas();
+    dibujarGuiones();
+    colocarLetras();
+}
+
+function reiniciarJuego() {
+    location.reload();
+}
+
+//Esta parte es para agregrar una nueva palabra y jugar con ella
+function desplegarPopUp() {
+    POP_UP.style.visibility = "visible";
+}
+
+function cerrarPopUp() {
+    POP_UP.style.visibility = "hidden";
+}
+
+function agregarPalabra() {
+    let nuevaPalabra = INPUT.value;
+
+    if (/[A-Z]/g.test(nuevaPalabra) && nuevaPalabra.length <= 8 && nuevaPalabra.length > 2) {
+        palabraSecreta = nuevaPalabra;
+        INPUT.value = "";
+        console.log(palabraSecreta);
+        jugarNuevaPalabra();
+    } else {
+        alert("Debe utilizar entre 3 y 8 letras MAYÚSCULAS");
+        INPUT.value = "";
+    }
+}
+//Esta funcion utiliza la palabra ingresada para jugar con la palabra elegida min-3 y max-8 caracteres
+function jugarNuevaPalabra() {
+    CONTENEDOR.style.display = "none";
+    BOTONES.style.display = "block";
+    tablero.style.display = "block";
+    POP_UP.style.visibility = "hidden";
+    dibujarCanvas();
+    dibujarGuiones();
+    colocarLetras();
+}
+//Esta funcion captura y comprueba las letras y las coloca en su lugar si corresponde
+function colocarLetras() {
+    document.addEventListener("keydown", function (event) {
+        let letra = event.key.toUpperCase();
+        let error = true;
+        for (let i = 0; i < palabraSecreta.length; i++) {
+            let largo = 450 / palabraSecreta.length;
+            if (letra === palabraSecreta[i]) {
+                pincel.fillStyle = "#0A3871";
+                pincel.strokeStyle = "#0A3871";
+                pincel.lineWidth = 6;
+                pincel.font = "bold 25px sans-serif";
+                pincel.textAlign = "center";
+                pincel.textBaseline = "alphabetic";
+                pincel.fillText(letra, 275 + (largo * i), 190, 450);
+                error = false;
+                contador ++;
+                console.log(contador);
+            } 
+        }
+        desplegarGanaste();
+
+        let ancho = 350 / 6;
+        if (error === true && event.keyCode >= 65 && event.keyCode <= 90) {
+            cantErrores++;
+            pincel.fillStyle = "#FF5533";
+            pincel.strokeStyle = "#0A3871";
+            pincel.lineWidth = 6;
+            pincel.font = "bold 25px sans-serif";
+            pincel.textAlign = "center";
+            pincel.textBaseline = "alphabetic";
+            pincel.fillText(letra, 150 + (ancho * cantErrores), 350, 350);
+            dibujarPersona();
+        }
+        
+    });
+    
+}
+
+function desplegarGanaste(){
+    if (contador === palabraSecreta.length){
+        GANASTE.style.visibility = "visible";
+    }
+}
+
+
+function dibujarPersona(){
+    
+    if(cantErrores === 1){
+        //cabeza
+        pincel.beginPath();
+        pincel.arc(140, 89, 35, 0, 2*Math.PI);
+        pincel.stroke();
+        pincel.closePath();
+    } else if (cantErrores === 2) {
+        //cuerpo
+        pincel.beginPath();
+        pincel.moveTo(140, 128);
+        pincel.lineTo(140, 230);
+        pincel.stroke();
+        pincel.closePath();
+    }else if (cantErrores === 3){
+        //brazo izq
+        pincel.beginPath();
+        pincel.moveTo(140, 138);
+        pincel.lineTo(90, 170);
+        pincel.stroke();
+        pincel.closePath();
+    } else if (cantErrores === 4){
+        //brazo der
+        pincel.beginPath();
+        pincel.moveTo(140, 138);
+        pincel.lineTo(190, 170);
+        pincel.stroke();
+        pincel.closePath();
+    } else if (cantErrores === 5) {
+        //pierna izq
+        pincel.beginPath();
+        pincel.moveTo(140, 230);
+        pincel.lineTo(100, 270);
+        pincel.stroke();
+        pincel.closePath();
+    } else if (cantErrores === 6) {
+        //pierna der
+        pincel.beginPath();
+        pincel.moveTo(140, 230);
+        pincel.lineTo(180, 270);
+        pincel.stroke();
+        pincel.closePath();
+    } else  if (cantErrores > 6){
+        PERDISTE.style.visibility = "visible";
+    }
+}
+
+
+
+
