@@ -5,6 +5,8 @@ const POP_UP = document.querySelector("#pop-up");
 const INPUT = document.querySelector("#new-word");
 const GANASTE = document.querySelector("#ganaste");
 const PERDISTE = document.querySelector("#perdiste");
+const CANVAS_CONTAINER = document.querySelector("#canvas");
+CANVAS_CONTAINER.style.display = "none";
 let tablero = document.querySelector("#ahorcado");
 let pincel = tablero.getContext("2d");
 tablero.style.display = "none";
@@ -63,6 +65,7 @@ function dibujarGuiones() {
 
 function iniciarJuego() {
     CONTENEDOR.style.display = "none";
+    CANVAS_CONTAINER.style.display = "block";
     BOTONES.style.display = "block";
     tablero.style.display = "block";
     sortearPalabra();
