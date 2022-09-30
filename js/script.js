@@ -7,7 +7,6 @@ const GANASTE = document.querySelector("#ganaste");
 const PERDISTE = document.querySelector("#perdiste");
 const CANVAS_CONTAINER = document.querySelector("#canvas");
 CANVAS_CONTAINER.style.display = "none";
-//let input = document.querySelector("#input-oculto");
 let tablero = document.querySelector("#ahorcado");
 let pincel = tablero.getContext("2d");
 tablero.style.display = "none";
@@ -204,8 +203,6 @@ function dibujarPersona(){
         PERDISTE.style.visibility = "visible";
     }
 }
-
-var target = document.getElementsByTagName("input-oculto")[0]; if (event.target != target) { target.focus(); target.click(); }; 
 
 
 
