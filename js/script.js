@@ -87,10 +87,6 @@ function cerrarPopUp() {
     POP_UP.style.visibility = "hidden";
 }
 
-POP_UP.onclick = function() {
-    POP_UP.style.visibility = "hidden";
-}
-
 function agregarPalabra() {
     let nuevaPalabra = INPUT.value;
 
