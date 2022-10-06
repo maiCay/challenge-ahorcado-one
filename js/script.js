@@ -1,5 +1,5 @@
 const CONTENEDOR = document.querySelector(".container");
-const BOTONES = document.querySelector(".game-buttons")
+const BOTONES = document.querySelector(".game-buttons");
 BOTONES.style.display = "none";
 const POP_UP = document.querySelector("#pop-up");
 const INPUT = document.querySelector("#new-word");
@@ -30,12 +30,12 @@ function dibujarCanvas() {
     pincel.strokeStyle = "#0A3871";
     pincel.fillRect(0, 0, 700, 400);
     pincel.beginPath();
-    pincel.moveTo(10, 250);
-    pincel.lineTo(100, 250);
-    pincel.moveTo(55, 250);
-    pincel.lineTo(55, 10);
-    pincel.lineTo(140, 10);
-    pincel.lineTo(140, 50);
+    pincel.moveTo(300, 280);
+    pincel.lineTo(450, 280);
+    pincel.moveTo(330, 280);
+    pincel.lineTo(330, 10);
+    pincel.lineTo(440, 10);
+    pincel.lineTo(440, 50);
     pincel.stroke();
     pincel.closePath();
 }
@@ -53,8 +53,8 @@ function dibujarGuiones() {
     let ancho = 450 / palabraSecreta.length;
 
     for (let i = 0; i < palabraSecreta.length; i++) {
-        pincel.moveTo(250 + (ancho * i), 200);
-        pincel.lineTo(300 + (ancho * i), 200);
+        pincel.moveTo(155 + (ancho * i), 350);
+        pincel.lineTo(205 + (ancho * i), 350);
     }
 
     pincel.stroke();
@@ -114,6 +114,7 @@ function jugarNuevaPalabra() {
 function colocarLetras() {
     document.addEventListener("keydown", function (event) {
         let letra = event.key.toUpperCase();
+        let code = event.keyCode;
         let error = true;
         for (let i = 0; i < palabraSecreta.length; i++) {
             let largo = 450 / palabraSecreta.length;
@@ -124,16 +125,17 @@ function colocarLetras() {
                 pincel.font = "bold 25px sans-serif";
                 pincel.textAlign = "center";
                 pincel.textBaseline = "alphabetic";
-                pincel.fillText(letra, 275 + (largo * i), 190, 450);
+                pincel.fillText(letra, 180 + (largo * i), 345, 450);
                 error = false;
                 contador ++;
                 console.log(contador);
             } 
         }
+        
         desplegarGanaste();
 
         let ancho = 350 / 6;
-        if (error === true && event.keyCode >= 65 && event.keyCode <= 90) {
+        if (error === true && code >= 65 && code <= 90) {
             cantErrores++;
             pincel.fillStyle = "#FF5533";
             pincel.strokeStyle = "#0A3871";
@@ -141,7 +143,7 @@ function colocarLetras() {
             pincel.font = "bold 25px sans-serif";
             pincel.textAlign = "center";
             pincel.textBaseline = "alphabetic";
-            pincel.fillText(letra, 150 + (ancho * cantErrores), 350, 350);
+            pincel.fillText(letra, 150 + (ancho * cantErrores), 390, 350);
             dibujarPersona();
         }
         
@@ -161,42 +163,42 @@ function dibujarPersona(){
     if(cantErrores === 1){
         //cabeza
         pincel.beginPath();
-        pincel.arc(140, 89, 35, 0, 2*Math.PI);
+        pincel.arc(440, 89, 35, 0, 2*Math.PI);
         pincel.stroke();
         pincel.closePath();
     } else if (cantErrores === 2) {
         //cuerpo
         pincel.beginPath();
-        pincel.moveTo(140, 128);
-        pincel.lineTo(140, 230);
+        pincel.moveTo(440, 128);
+        pincel.lineTo(440, 230);
         pincel.stroke();
         pincel.closePath();
     }else if (cantErrores === 3){
         //brazo izq
         pincel.beginPath();
-        pincel.moveTo(140, 138);
-        pincel.lineTo(90, 170);
+        pincel.moveTo(440, 138);
+        pincel.lineTo(390, 170);
         pincel.stroke();
         pincel.closePath();
     } else if (cantErrores === 4){
         //brazo der
         pincel.beginPath();
-        pincel.moveTo(140, 138);
-        pincel.lineTo(190, 170);
+        pincel.moveTo(440, 138);
+        pincel.lineTo(490, 170);
         pincel.stroke();
         pincel.closePath();
     } else if (cantErrores === 5) {
         //pierna izq
         pincel.beginPath();
-        pincel.moveTo(140, 230);
-        pincel.lineTo(100, 270);
+        pincel.moveTo(440, 230);
+        pincel.lineTo(400, 270);
         pincel.stroke();
         pincel.closePath();
     } else if (cantErrores === 6) {
         //pierna der
         pincel.beginPath();
-        pincel.moveTo(140, 230);
-        pincel.lineTo(180, 270);
+        pincel.moveTo(440, 230);
+        pincel.lineTo(480, 270);
         pincel.stroke();
         pincel.closePath();
     } else  if (cantErrores > 6){
