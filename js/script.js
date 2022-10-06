@@ -103,9 +103,9 @@ function agregarPalabra() {
 //Esta funcion utiliza la palabra ingresada para jugar con la palabra elegida min-3 y max-8 caracteres
 function jugarNuevaPalabra() {
     CONTENEDOR.style.display = "none";
+    CANVAS_CONTAINER.style.display = "block";
     BOTONES.style.display = "block";
     tablero.style.display = "block";
-    POP_UP.style.visibility = "hidden";
     dibujarCanvas();
     dibujarGuiones();
     colocarLetras();
