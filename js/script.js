@@ -1,7 +1,7 @@
 const CONTENEDOR = document.querySelector(".container");
 const BOTONES = document.querySelector(".game-buttons");
 BOTONES.style.display = "none";
-const POP_UP = document.querySelector("#pop-up");
+const POP_UP = document.querySelector(".popup-container");
 const INPUT = document.querySelector("#new-word");
 const GANASTE = document.querySelector("#ganaste");
 const PERDISTE = document.querySelector("#perdiste");
@@ -87,6 +87,10 @@ function cerrarPopUp() {
     POP_UP.style.visibility = "hidden";
 }
 
+POP_UP.onclick = function() {
+    POP_UP.style.visibility = "hidden";
+}
+
 function agregarPalabra() {
     let nuevaPalabra = INPUT.value;
 
@@ -157,6 +161,10 @@ function desplegarGanaste(){
     }
 }
 
+GANASTE.onclick = function(){
+    GANASTE.style.visibility = "hidden";
+}
+
 
 function dibujarPersona(){
     
@@ -204,6 +212,10 @@ function dibujarPersona(){
     } else  if (cantErrores > 6){
         PERDISTE.style.visibility = "visible";
     }
+}
+
+PERDISTE.onclick = function(){
+    PERDISTE.style.visibility = "hidden";
 }
 
 
