@@ -5,6 +5,7 @@ const POP_UP = document.querySelector(".popup-container");
 const INPUT = document.querySelector("#new-word");
 const GANASTE = document.querySelector("#ganaste");
 const PERDISTE = document.querySelector("#perdiste");
+let inputOculto = document.querySelector("#input-oculto"); 
 let p =  document.querySelector("#p-palabra");
 const CANVAS_CONTAINER = document.querySelector("#canvas");
 CANVAS_CONTAINER.style.display = "none";
@@ -69,6 +70,7 @@ function iniciarJuego() {
     CANVAS_CONTAINER.style.display = "block";
     BOTONES.style.display = "block";
     tablero.style.display = "block";
+    inputOculto.focus();
     sortearPalabra();
     dibujarCanvas();
     dibujarGuiones();
@@ -112,6 +114,7 @@ function jugarNuevaPalabra() {
     CANVAS_CONTAINER.style.display = "block";
     BOTONES.style.display = "block";
     tablero.style.display = "block";
+    inputOculto.focus();
     dibujarCanvas();
     dibujarGuiones();
     colocarLetras();
