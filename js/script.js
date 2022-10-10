@@ -5,6 +5,7 @@ const POP_UP = document.querySelector(".popup-container");
 const INPUT = document.querySelector("#new-word");
 const GANASTE = document.querySelector("#ganaste");
 const PERDISTE = document.querySelector("#perdiste");
+let p =  document.querySelector("#p-palabra");
 const CANVAS_CONTAINER = document.querySelector("#canvas");
 CANVAS_CONTAINER.style.display = "none";
 let tablero = document.querySelector("#ahorcado");
@@ -98,6 +99,11 @@ function agregarPalabra() {
     } else {
         alert("Debe utilizar entre 3 y 8 letras MAYÚSCULAS");
         INPUT.value = "";
+    }
+
+    if (!palabras.includes(nuevaPalabra)){
+        palabras.push(nuevaPalabra);
+        console.log(palabras);
     }
 }
 //Esta funcion utiliza la palabra ingresada para jugar con la palabra elegida min-3 y max-8 caracteres
@@ -207,6 +213,7 @@ function dibujarPersona(){
         pincel.closePath();
     } else  if (cantErrores > 6){
         PERDISTE.style.visibility = "visible";
+        p.innerHTML = "La palabra era: " + palabraSecreta;
     }
 }
 
